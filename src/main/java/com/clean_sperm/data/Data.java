@@ -33,7 +33,6 @@ public class Data {
                     }
                     data.add(row);
                     System.out.println(row[3]);
-
                 }
             }
             closeDatabaseConnection();
@@ -72,7 +71,7 @@ public class Data {
                             found = false;
                         }
                     }
-                    System.out.print("\rrow in dairy " + count);
+                    System.out.print("\rrow in dairy 69359/" + count);
                     count++;
                 }
             }
