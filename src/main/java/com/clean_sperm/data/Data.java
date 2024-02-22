@@ -32,7 +32,6 @@ public class Data {
                         row[i - 1] = resultSet.getString(i);
                     }
                     data.add(row);
-                    System.out.println(row[3]);
                 }
             }
             closeDatabaseConnection();
@@ -42,16 +41,24 @@ public class Data {
         return data;
     }
 
-    public static HashSet<String[]> getTzSpermByDairySperm(ArrayList<String[]> dataDairy) {
+    public static HashSet<String> findAllSpermcodeInDairySperm(ArrayList<String[]> dataDairy) {
+        HashSet<String> hs = new HashSet<>();
+        for (String[] data : dataDairy) {
+            hs.add(data[3]);
+        }
+
+        return hs;
+    }
+
+    public static HashSet<String[]> getTzSpermByDairySpermCode(HashSet<String> spermCode) {
 
         HashSet<String[]> data = new HashSet<>();
-        boolean found = false;
         try {
             openDatabaseVpnConnection();
-            for (String[] d : dataDairy) {
+            for (String s : spermCode) {
                 String query = "SELECT * FROM dip_tz WHERE tzdad_id = ?";
                 try (PreparedStatement statement = connection.prepareStatement(query)) {
-                    statement.setString(1, d[3]);
+                    statement.setString(1, s);
                     ResultSet resultSet = statement.executeQuery();
                     int column = statement.getMetaData().getColumnCount();
                     while (resultSet.next()) {
@@ -60,18 +67,11 @@ public class Data {
                         for (int i = 1; i <= column; i++) {
                             row[i - 1] = resultSet.getString(i);
                         }
-                        for(String[] da : data){
-                            if(da[0].equals(row[0])){
-                                found = true;
-                            }
-                        }
-                        if(!found){
-                            data.add(row);
-                        }else{
-                            found = false;
-                        }
+
+                        data.add(row);
+
                     }
-                    System.out.print("\rrow in dairy 69359/" + count);
+                    System.out.print("\rSearch sperm code in tz 11075 / " + count);
                     count++;
                 }
             }

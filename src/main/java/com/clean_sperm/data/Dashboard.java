@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 public class Dashboard {
 
-    public Dashboard(){
+    public Dashboard() throws InterruptedException{
 
         //get all dairy sperm
         System.out.println("Running!!!");
@@ -13,10 +13,15 @@ public class Dashboard {
         System.out.println("Get Sperm dairy Done!");
         
         System.out.println("=====================");
+        System.out.println("find All Sperm code in sperm dairy");
+        HashSet<String> spermCode = Data.findAllSpermcodeInDairySperm(dataDairy);
+        System.out.println("Result Hashset sperm code : "+spermCode.toString());
+        System.out.println("Result Hashset amount : "+spermCode.size());
+        System.out.println("=====================");
         
         //get all tz have in dairy
         System.out.println("Get Sperm in Tz By Dairy");
-        HashSet<String[]> dataTz = Data.getTzSpermByDairySperm(dataDairy);
+        HashSet<String[]> dataTz = Data.getTzSpermByDairySpermCode(spermCode);
         System.out.println(setToString(dataTz));
         System.out.println("Get Sperm in Tz By Dairy Done!");
         
